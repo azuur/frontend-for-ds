@@ -1,0 +1,22 @@
+[project]
+name = "frontend-for-ds"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "adrian-zuur", email = "adrian.zuur@globant.com" } 
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.2",
+    "openai>=1.51.2",
+    "python-fasthtml>=0.6.13",
+    "streamlit>=1.39.0",
+]
+
+[project.scripts]
+frontend-for-ds = "frontend_for_ds:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
