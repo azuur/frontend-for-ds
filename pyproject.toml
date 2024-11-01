@@ -8,14 +8,24 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "dash-bootstrap-components>=1.6.0",
+    "dash>=2.18.1",
     "fastapi>=0.115.2",
+    "jinja2>=3.1.4",
     "openai>=1.51.2",
+    "python-dotenv>=1.0.1",
     "python-fasthtml>=0.6.13",
     "streamlit>=1.39.0",
+    "uvicorn[standard]>=0.32.0",
 ]
 
 [project.scripts]
-frontend-for-ds = "frontend_for_ds:main"
+plain-demo = "frontend_for_ds:plain_demo_main"
+json-server = "frontend_for_ds:json_server_main"
+html-server = "frontend_for_ds:html_server_main"
+fasthtml-server = "frontend_for_ds:fasthtml_server_main"
+streamlit-server = "frontend_for_ds:streamlit_server_main"
+dash-server = "frontend_for_ds:dash_server_main"
 
 [build-system]
 requires = ["hatchling"]
