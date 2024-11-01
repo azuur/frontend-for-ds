@@ -1,6 +1,7 @@
 # Adapted from https://github.com/plotly/dash-sample-apps/blob/main/apps/dash-gpt3-chatbot/app.py
 
 from pathlib import Path
+import uuid
 import dash
 from dash import html
 from dash import dcc
@@ -99,6 +100,7 @@ app.layout = dbc.Container(
         conversation,
         controls,
         dbc.Spinner(html.Div(id="loading-component")),
+        dcc.Store(id="session-id", data=None),
     ],
 )
 
@@ -130,22 +132,30 @@ def clear_input(n_clicks, n_submit):
     [
         Output("store-conversation", "data"),
         Output("loading-component", "children"),
+        Output("session-id", "data"),
     ],
     [Input("submit", "n_clicks"), Input("user-input", "n_submit")],
-    [State("user-input", "value"), State("store-conversation", "data")],
+    [
+        State("user-input", "value"),
+        State("store-conversation", "data"),
+        State("session-id", "data"),
+    ],
 )
-def run_chatbot(n_clicks, n_submit, user_input, chat_history):
+def run_chatbot(n_clicks, n_submit, user_input, chat_history, session_id):
+
+    if session_id is None:
+        session_id = str(uuid.uuid4())
+
     if n_clicks == 0 and n_submit is None:
-        return [], None
+        return [], None, session_id
 
     if user_input is None or user_input == "":
-        return chat_history, None
+        return chat_history, None, session_id
 
-    session_id = 1
     _ = reply(session_id, user_input)
     chat_history = get_session_messages(session_id)
 
-    return chat_history, None
+    return chat_history, None, session_id
 
 
 def main():
