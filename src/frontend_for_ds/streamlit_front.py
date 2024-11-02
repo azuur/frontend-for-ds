@@ -27,9 +27,8 @@ def streamlit_render():
 
     session_id = _get_session().id
     messages = get_session_messages(session_id)
-    display_messages(messages)
-
     st.title("AI assistant demo!")
+    display_messages(messages)
 
     if user_message_text := st.chat_input("..."):
 
